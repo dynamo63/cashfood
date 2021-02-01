@@ -1,0 +1,10 @@
+# Virtual env
+env/
+
+# Python cache
+**/__pycache__/
+
+# Sqlite database
+db.sqlite3
+
+*.http
