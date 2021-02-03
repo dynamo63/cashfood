@@ -8,3 +8,6 @@ env/
 db.sqlite3
 
 *.http
+
+# dotenv
+.env

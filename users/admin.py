@@ -1,13 +1,15 @@
 from django.contrib import admin
-from django_admin_relation_links import AdminChangeLinksMixin
 from .models import CashFoodMember, Affilie
 
 @admin.register(CashFoodMember)
-class CashFoodAdmin(AdminChangeLinksMixin ,admin.ModelAdmin):
-    list_display = ("username", "phone_number", "code", "nb_affilie")
+class CashFoodAdmin(admin.ModelAdmin):
+    list_display = ("code", "phone_number", "username", "nb_affilie")
 
     def username(self, obj):
-        return obj.user.username
+        try:
+            return obj.user.username
+        except AttributeError:
+            return "Aucun"
 
     def nb_affilie(self, obj):
         return obj.affilie_set.count()
@@ -15,5 +17,5 @@ class CashFoodAdmin(AdminChangeLinksMixin ,admin.ModelAdmin):
     nb_affilie.short_description = "Nombre d'Affilie"
 
 @admin.register(Affilie)
-class AffilieAdmin(AdminChangeLinksMixin, admin.ModelAdmin):
+class AffilieAdmin(admin.ModelAdmin):
     list_display = ['username', 'code', 'parent']

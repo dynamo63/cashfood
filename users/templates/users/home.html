@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello, my name is {{ user.username }} </h1>
+    <p>
+        <a href="{% url 'logout' %}">Deconnexion</a>
+    </p>
+    <ul>
+        {% for affilie in affilies %}
+            <li>{{ affilie.username }}</li>
+        {% empty %}
+            <li>Rien a signaler</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
