@@ -26,6 +26,3 @@ class CashFoodSignInForm(forms.Form):
             raise forms.ValidationError('Ce code n\'existe pas')
         else:
             return code
-
-
-    
