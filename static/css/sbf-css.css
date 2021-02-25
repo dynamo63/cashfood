@@ -1,0 +1,89 @@
+.card{
+    border: none;
+    background-color: transparent;
+}
+.card i{
+    font-size: 50px;
+    color: white;
+}
+.pic-intro{
+    border-radius: 50%;
+}
+.list-group .list-group-item{
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+}
+.tab-pane li{
+    margin-bottom: 2%;
+}
+.cnx-container{
+    border: 1px solid #cccccc;
+    padding: 5%;
+}
+/*----la nav----*/
+.nav-principal{
+    float: right;
+    margin-top: 2%;
+}
+.nav-principal .nav-link {
+    color: black;
+    font-size: 16px;
+}
+/*----fin de la nav ----*/
+
+/*-----les marges externes -----*/
+.m-top-xmini{
+    margin-top: .5%;
+}
+.m-top-mini{
+    margin-top: 2.5%;
+}
+.m-top{
+    margin-top: 5%;
+}
+.m-top-big{
+    margin-top: 10%;
+}
+.m-bottom-xmini{
+    margin-bottom: .5%;
+}
+.m-bottom-mini{
+    margin-bottom: 2.5%;
+}
+.m-bottom{
+    margin-bottom: 5%;
+}
+.m-bottom-big{
+    margin-bottom: 10%;
+}
+
+/*-----les marges externes-----*/
+
+/*-----les marges internes-----*/
+.p-top-xmini{
+    padding-top: .5%;
+}
+.p-top-mini{
+    padding-top: 2.5%;
+}
+.p-top{
+    padding-top: 5%;
+}
+.p-top-big{
+    padding-top: 10%;
+}
+.p-bottom-xmini{
+    padding-bottom: .5%;
+}
+.p-bottom-mini{
+    padding-bottom: 2.5%;
+}
+.p-bottom{
+    padding-bottom: 5%;
+}
+.p-bottom-big{
+    padding-bottom: 10%;
+}
+
+/*-----les marges internes-----*/
