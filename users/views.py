@@ -20,11 +20,11 @@ def login(request):
         cashmember = authenticate(code=code, password=password)
         if cashmember is not None:
             auth_login(request, cashmember.user, backend='users.backends.CashFoodBackend')
-        return redirect('home')
-    return render(request, 'users/login.html')
+            return redirect('dashboard')
+    return render(request, 'users/connexion.html')
 
 @login_required
-def home(request):
+def dashboard(request):
     """
         Page d'accueil : home
     """
@@ -35,6 +35,9 @@ def home(request):
     }
 
     return render(request, 'users/home.html', data)
+
+def home(request):
+    return render(request, 'index.html')
 
 def signin_with_code(request):
     """
@@ -66,7 +69,7 @@ def signin_with_code(request):
                 # Affiliation
                 Affilie.objects.create(parent=current_cashfoodmember, username=username, code=code)
             return redirect('login')
-    return render(request, 'users/sign_in2.html', { 'form': form })
+    return render(request, 'users/inscription.html', { 'form': form })
 
 def signin_with_link(request, code):
     """

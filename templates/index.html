@@ -1,0 +1,515 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Santé Pour Tous | Bienvenue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/sbf-css.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid bg-primary">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 text-white">
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item">Adresse Physique: POG GABON. P.B : 3304
+                        </li>
+                    <li class="list-group-item">Adresse Email: info@sbf-sos.org
+                    </li>
+                    <li class="list-group-item">Numéro de Téléphone: + 241 62 99 10 12
+                    </li>
+                  </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row m-top-xmini m-bottom-xmini">
+            <div class="col-lg-2">
+                <img src="{% static 'images/logo_new.png' %}" alt="logo sbf" class="img-fluid">
+            </div>
+            <div class="col-lg-9 offset-lg-1">
+                <ul class="nav nav-principal">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Fonctionnement</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Gains</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signin-code' %}">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                  </ul>
+            </div>
+        </div>
+    </div>
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static 'images/slider1.jpg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>First slide label</h5>
+              <p>Some representative placeholder content for the first slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/slider2.jpg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Second slide label</h5>
+              <p>Some representative placeholder content for the second slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/slider3.jpg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Third slide label</h5>
+              <p>Some representative placeholder content for the third slide.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <div class="container">
+          <div class="row m-top m-bottom">
+              <div class="col-lg-7">
+                  <h2 class="fw-bold m-top-big">
+                    SBF: Programme de soutient pour la population
+                  </h2>
+                  <p>
+                    Dans le souci d’atteindre la couche de la population la plus 
+                    démunie en matière de santé et de bien-être,l’ONG « SOS-Santé 
+                    Pour Tous », Centre de Promotion de la santé et du bien-être 
+                    familial lance un  programme d’éradication des maladies,de la faim 
+                    et de la pauvreté sous forme de MLM dans un programme intitulé SANTE 
+                    & BIEN-ETRE FAMILIAL (SBF) qui emmènera  tous ses membres à sortir 
+                    de la précarité sanitaire, alimentaire et financière.
+                  </p>
+              </div>
+              <div class="col-lg-5">
+                <img src="{% static 'images/pic-intro.jpg' %}" class="img-fluid pic-intro" alt="...">
+              </div>
+          </div>
+      </div>
+      <div class="container-fluid bg-primary text-white m-top m-bottom p-top p-bottom">
+          <div class="row">
+              <div class="col-lg-12">
+                  <h2 class="fw-bold text-uppercase text-center">Ce que nous offrons à nos membres</h2>
+                <div class="row row-cols-1 row-cols-md-4 g-4 text-center p-top p-bottom">
+                    <div class="col">
+                      <div class="card h-100">
+                        <i class="fas fa-medkit"></i>
+                        <div class="card-body">
+                          <h5 class="card-title fw-bold">Kits de santé</h5>
+                          <p class="card-text">
+                            Compléments alimentaires capables d’aider notre organisme à guérir de nombreuses maladies.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card h-100">
+                        <i class="fas fa-fish"></i>
+                        <div class="card-body">
+                          <h5 class="card-title fw-bold">Kits alimentaires</h5>
+                          <p class="card-text">
+                            Produits alimentaires qui mettront les membres à l’abri de la faim
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card h-100">
+                        <i class="fas fa-money-check-alt"></i>
+                        <div class="card-body">
+                          <h5 class="card-title fw-bold">Argent en espèces</h5>
+                          <p class="card-text">
+                            De l’argent en espèces pour soulager les portes monnaies de ses membres.
+                            </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card h-100">
+                        <i class="fas fa-medkit"></i>
+                        <div class="card-body">
+                          <h5 class="card-title fw-bold">Kits matériels</h5>
+                          <p class="card-text">
+                            Des matériels pour le confort des membres
+                            </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container-fluid m-top m-bottom p-top p-bottom">
+          <div class="row">
+              <div class="col-lg-10 offset-lg-1">
+                <h2 class="fw-bold m-top text-uppercase">Fonctionnement</h2>
+                <hr>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                      <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title fw-bold">Démarreur</h5>
+                          <p class="card-text">
+                            Devenez un membre de l’ONG « SOS Santé Pour Tous » en achetant un code SBF (Santé & Bien-être Familial) à  5 000 FCFA  (votre seul et unique  investissement).  Vous serez  un RUGBY prêt à évoluer et à cumuler des gains. Inscrire 3 personnes  et obtenir: L’activation de votre BACK OFFICE qui vous permet de mieux organiser votre équipe et de visionner l’ensemble des membres de la dite équipe. 
+                            Vous voilà devenu le responsable de votre groupe.  
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card h-100">
+                        <img src="{% static 'images/Diapositive3.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title fw-bold">Rugby 1</h5>
+                          <p class="card-text">
+                            Pour terminer cette étape, vous avez besoin  que vos 3 filleuls  terminent leur étape de DEMARREUR en sponsorisant à leur tour 3  personnes. 
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card h-100">
+                        <img src="{% static 'images/Diapositive3.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title fw-bold">Rugby 2</h5>
+                          <p class="card-text">
+                            Vous avez fini votre étape   de RUGBY 1, avez reçu vos gains. Vous passez maintenant à l’étape suivant et devenez RUGBY 2. Lorsque les membres de votre équipe  vous rejoignent dans cette étape, vous percevez vos gains et passez au RUGBY suivant. 
+                        </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card h-100">
+                        <img src="{% static 'images/Diapositive4.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title fw-bold">Rugby 3</h5>
+                          <p class="card-text">
+                            Vous avez fini votre étape de RUGBY 2, avez reçu vos gains. Vous passez maintenant à l’étape suivant et devenez RUGBY 3 Lorsque les membres de votre équipe  vous rejoignent dans cette étape, vous percevez vos gains et passez au RUGBY suivant.  
+                        </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                          <img src="{% static 'images/Diapositive5.jpg' %}" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title fw-bold">Rugby 4</h5>
+                            <p class="card-text">
+                                Vous avez fini votre étape de RUGBY 3, avez reçu vos gains. Vous passez maintenant à l’étape suivant et devenez RUGBY 4. Vos gains ne cessent de croître. Lorsque les membres de votre équipe  vous rejoignent dans cette étape, vous percevez vos gains et passez au RUGBY suivant.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="card h-100">
+                          <img src="{% static 'images/Diapositive6.jpg' %}" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title fw-bold">Rugby 5</h5>
+                            <p class="card-text">
+                                Vous avez fini votre étape de RUGBY 4, avez reçu vos gains. Vous passez maintenant à l’étape suivant et devenez RUGBY 5. Vos gains continus de croître. Lorsque les membres de votre équipe  vous rejoignent dans cette étape, vous percevez vos gains et passez au RUGBY suivant.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="card h-100">
+                          <img src="{% static 'images/Diapositive7.jpg' %}" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title fw-bold">Rugby 6</h5>
+                            <p class="card-text">
+                                Vous avez fini votre étape de RUGBY 5, avez reçu vos gains. Vous passez maintenant à l’étape suivant et devenez RUGBY 6. Vos gains ne cessent de croître. Lorsque les membres de votre équipe  vous rejoignent dans cette étape, vous percevez vos gains et passez au RUGBY suivant.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="card h-100">
+                          <img src="{% static 'images/Diapositive8.jpg' %}" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title fw-bold">Rugby 7</h5>
+                            <p class="card-text">
+                                Vous avez fini votre étape de RUGBY 6, avez reçu vos gains. Vous passez maintenant à l’étape suivant et devenez RUGBY 7. Vos gains ne cessent de croître. Lorsque les membres de votre équipe  vous rejoignent dans cette étape, vous percevez vos gains et passez au RUGBY suivant.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="card h-100">
+                          <img src="{% static 'images/Diapositive9.jpg' %}" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title fw-bold">Rugby 8</h5>
+                            <p class="card-text">
+                                Vous avez fini votre étape de RUGBY 7, avez reçu vos gains. Vous passez maintenant à l’étape suivant et devenez RUGBY 8. Vous avez atteint le plafond et vous devenez un ambassadeur de Santé & Bien-être Familial. Il est temps pour vous de devenir membre de  direction de   Santé & Bien-être Familial. Lorsque les membres de votre équipe  vous rejoignent dans cette étape, vous percevez vos gains et devenez membre de  direction de   Santé & Bien-être Familial.  BRAVO!!!
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container-fluid bg-primary">
+          <div class="row">
+              <div class="col-lg-10 offset-lg-1 text-white">
+                  <h2 class="fw-bold m-top text-uppercase">Gains</h2>
+                  <hr>
+                <div class="m-top m-bottom">
+                    <div class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+                      <button class="nav-link active" id="le-demarrage" data-bs-toggle="pill" data-bs-target="#demarrage" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Démarrage</button>
+                      <button class="nav-link" id="le-r1" data-bs-toggle="pill" data-bs-target="#r1" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Rugby 1</buttona>
+                      <button class="nav-link" id="le-r2" data-bs-toggle="pill" data-bs-target="#r2" type="button" role="tab" aria-controls="pills-messages" aria-selected="false">Rugby 2</button>
+                      <button class="nav-link" id="le-r3" data-bs-toggle="pill" data-bs-target="#r3" type="button" role="tab" aria-controls="pills-settings" aria-selected="false">Rugby 3</button>
+                      <button class="nav-link" id="le-r4" data-bs-toggle="pill" data-bs-target="#r4" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Rugby 4</button>
+                      <button class="nav-link" id="le-r5" data-bs-toggle="pill" data-bs-target="#r5" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Rugby 5</buttona>
+                      <button class="nav-link" id="le-r6" data-bs-toggle="pill" data-bs-target="#r6" type="button" role="tab" aria-controls="pills-messages" aria-selected="false">Rugby 6</button>
+                      <button class="nav-link" id="le-r7" data-bs-toggle="pill" data-bs-target="#r7" type="button" role="tab" aria-controls="pills-settings" aria-selected="false">Rugby 7</button>
+                      <button class="nav-link" id="le-r8" data-bs-toggle="pill" data-bs-target="#r8" type="button" role="tab" aria-controls="pills-settings" aria-selected="false">Rugby 8</button>
+                    </div>
+                    <div class="tab-content" id="pills-tabContent">
+                      <div class="tab-pane fade show active" id="demarrage" role="tabpanel" aria-labelledby="pills-home-tab">
+                          <div class="row">
+                              <div class="col-lg-12">
+                                  <ul>
+                                      <li>1 produit de santé : 1 Dentifrice Bio ou lotion Bio pour l’entretient des dents.</li>
+                                      <li>1 kit alimentaire : 1 Kg de riz parfumé + 1 paquet de Spaghetti 500 g + 1 boite de lait.</li>
+                                  </ul>
+                              </div>
+                              <div class="col-lg-8">
+
+                              </div>
+                          </div>
+                      </div>
+                      <div class="tab-pane fade" id="r1" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="col-lg-12">
+                            <ul>
+                                <li>1 Kit de santé d’une valeur de 10 000 Fcfa (1 ou 2 compléments alimentaires qui soignent)</li>
+                                <li>1 kit alimentaire composé de : 5 Kg de riz parfumé, 2 litres d’huile raffiné, 4 boites de tomate 400g, 3 boites de lait, 1 paquet de sucre.</li>
+                            </ul>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="r2" role="tabpanel" aria-labelledby="pills-messages-tab">
+                        <div class="col-lg-12">
+                            <ul>
+                                <li>1 Kit de santé d’une valeur de 25 000 Fcfa (1 ou plusieurs compléments alimentaires qui soignent et vous maintient en bonne santé)</li>
+                                <li>1 kit alimentaire composé de : 25 Kg de riz parfumé,  5 litres d’huile raffiné, 4 boites de tomate 400g, 5 paquets  de spaghetti 500g, 1 paquet de sucre, 2 boites de Sardine à huile, 2 boites de lait, 2 sachets de sel</li>
+                                <li>1 bouilloire électrique</li>
+                            </ul>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="r3" role="tabpanel" aria-labelledby="pills-settings-tab">
+                        <div class="col-lg-12">
+                            <ul>
+                                <li>1 Kit de santé d’une valeur de 100 000 Fcfa (1 ou plusieurs compléments alimentaires qui soignent les maladies et vous maintient en bonne santé)</li>
+                                <li>1 kit alimentaire composé de : 2 sacs de 25 Kg de riz parfumé, 2 bidons de 5 litres d’huile raffiné, 10 boites de tomate 400g, 1 carton de spaghetti 500g, 5 paquets de sucre, 8 boites de Sardine à huile, 4 boites de lait, 4 sachets de sel, 3 boites de café.</li>
+                                <li>1 téléphone androïde d’une valeur de 70 000 Fcfa</li>
+                            </ul>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="r4" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="col-lg-12">
+                            <ul>
+                                <li>1 Kit de santé d’une valeur de 150 000 Fcfa (1 ou plusieurs compléments alimentaires qui soignent les maladies et vous maintient en bonne santé)</li>
+                                <li>1 kit alimentaire composé de : 3 sacs de 25 Kg de riz parfumé, 4 bidons de 5 litres d’huile raffiné, 20 boites de tomate 400g, 2 carton de spaghetti 500g, 5 paquets de sucre, 12 boites de Sardine à huile, 4 boites de lait, 4 sachets de sel, 3 boites de café.</li>
+                                <li>1 gazinière  de 4 foyers avec four d’une valeur de 150 000 Fcfa</li>
+                            </ul>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="r5" role="tabpanel" aria-labelledby="pills-messages-tab">
+                        <div class="col-lg-12">
+                            <ul>
+                                <li>1 Kit de santé d’une valeur de 500 000 Fcfa (1 ou plusieurs compléments alimentaires qui soignent les maladies et vous maintient en bonne santé)</li>
+                                <li>1 kit alimentaire composé de : 1 abonnement en produits alimentaires de votre choix d’une valeur de 30 000Fcfa /mois pendant 6 mois dans un magasin de la place, 4 sacs de 25 Kg de riz parfumé, 4 bidons de 5 litres d’huile raffiné, 10 boites de tomate 400g, 2 carton de spaghetti 500g, 2 paquets de sucre, 4 boites de Sardine à huile, 8 boites de lait, 2 sachets de sel, 4 boites de café, 3 paquets de farine de blé.</li>
+                                <li>1 congélateur ou réfrigérateur d’une valeur de 350 000 Fcfa  + 1 écran plasma d’une valeur de 250 000 Fcfa.</li>
+                            </ul>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="r6" role="tabpanel" aria-labelledby="pills-settings-tab">
+                        <div class="col-lg-12">
+                            <ul>
+                                <li>1 Kit de santé d’une valeur de 800 000 Fcfa (plusieurs compléments alimentaires qui soignent les maladies et vous maintiennent en bonne santé)</li>
+                                <li>1 kit alimentaire composé de : 1 abonnement en produits alimentaires de votre choix d’une valeur de 50 000Fcfa /mois pendant 12 mois dans un magasin de la place, 8 sacs de 25 Kg de riz parfumé,  6 bidons de 5 litres d’huile raffiné, 30 boites de tomate 400g, 4 cartons de spaghetti 500g, 5 Kg de sucre, 1 carton de Sardine à huile, 12 boites de lait, 5 sachets de sel, 8 boites de café, 6 paquets de farine de blé.</li>
+                                <li>1 ordinateur portable d’une valeur de 350 000 Fcfa  + 1 voiture de luxe flambant neuve d’une valeur de 5 000 000 Fcfa, + 1 pension scolaire pour vos enfant d’une valeur de 500 000 Fcfa  +  1 bon de carburant d 20 000 Fcfa / mois pendant 1 an.</li>
+                            </ul>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="r7" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="col-lg-12">
+                            <ul>
+                                <li>1 Kit de santé d’une valeur de 1 000 000 Fcfa   (1 ou plusieurs compléments alimentaires qui soignent les maladies et vous maintient en bonne santé + les appareils de santé) + 2 ouvertures de compte dans 2  réseaux.</li>
+                                <li>1 kit alimentaire composé de : 1 abonnement en produits alimentaires de votre choix d’une valeur de 70 000Fcfa /mois pendant 18 mois dans un magasin de la place.</li>
+                                <li>1 voiture de luxe d’une valeur de  8 000 000  Fcfa + 1 voyage à l’international tout frais payé dans le pays de votre choix d’une valeur de 3 000 000 Fcfa  + 2 bourses d’études  pour vos enfants d’une valeur de       1 5000 000 Fcfa chacune + 1 abonnement en crédit de téléphone  d’une valeur de 50 000 Fcfa / mois pendant 1 an + 1 téléphone d’une valeur de 450 000 Fcfa dont la marque sera de votre choix + 1 bon de carburant d’une valeur de 50 000 Fcfa / mois pendant 18 mois.</li>
+                            </ul>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="r8" role="tabpanel" aria-labelledby="pills-messages-tab">
+                        <div class="col-lg-12">
+                            <ul>
+                                <li>1 Kit de santé d’une valeur de 2 000 000 Fcfa (1 ou plusieurs compléments alimentaires qui soignent les maladies et vous maintient en bonne santé + les appareils de santé)</li>
+                                <li>1 kit alimentaire composé de : 1 abonnement en produits alimentaires de votre choix d’une valeur de 300 000 /mois pendant 24 mois dans un magasin de la place.</li>
+                                <li>1 maison entièrement équipée d’une valeur de 25 000 000  Fcfa +  1% des avoir annuel de Santé & Bien-être Familial le restant de votre vie et ceci reviendra à vos héritier même si vous venez à disparaitre.</li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+      <div class="container">
+          <div class="row">
+              <div class="col-12">
+                  <h2 class="fw-bold m-top">
+                    FAQ
+                  </h2>
+                  <h4 class="fw-bold">
+                    QUESTIONS FRÉQUENTES
+                  </h4>
+              </div>
+              <div class="col-lg-12">
+                <div class="accordion m-top-mini" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#inscription" aria-expanded="true" aria-controls="collapseOne">
+                          Comment s'inscrire ?
+                        </button>
+                      </h2>
+                      <div id="inscription" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Pour devenir membre de Santé & Bien-être Familial,  contactez la personne qui vous a présenté l’ONG « SOS Santé Pour Tous » afin qu’elle puisse vous fournir les détails d’inscription, puis achetez simplement votre code SBF pour l’enregistrement auprès de l’entreprise, cliquez sur Devenir Membre puis continuez
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cout" aria-expanded="false" aria-controls="collapseTwo">
+                            Combien cela coute-t-il de joindre Santé & Bien-être Familial ?
+                        </button>
+                      </h2>
+                      <div id="cout" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Vous vous inscrivez avec un paiement unique de 5 000 Fcfa
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#code" aria-expanded="false" aria-controls="collapseThree">
+                            Comment acheter le code SBF pour l’inscription ?
+                        </button>
+                      </h2>
+                      <div id="code" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Envoyez les informations suivantes à Santé & Bien-être Familial  par  SMS à ce numéro de téléphone + 241 62 99 10 12  ou + 241 77 60 79 76 (c’est une proposition pour ton numéro)
+                            <ul>
+                                <li>Nom du déposant</li>
+                                <li>Montant déposé (5 000 Fcfa) au siège et 5 200 par Mobil Money</li>
+                                <li>Votre numéro whatsapp</li>
+                                <li>Nom de votre sponsor</li>
+                                <li>ID de votre sponsor</li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#compte" aria-expanded="false" aria-controls="collapseThree">
+                            Combien de compte puis-je enregistrer ?
+                          </button>
+                        </h2>
+                        <div id="compte" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            Vous pouvez enregistrer 1, 2, 3 ou 7 comptes, mais il n’y a pas de limite au nombre de comptes que vous pouvez enregistrer en tant qu’individu, à condition que vous puissiez les gérer facilement
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#personne" aria-expanded="false" aria-controls="collapseThree">
+                            Combien de personne dois-je parrainer avant de pouvoir gagner ?
+                          </button>
+                        </h2>
+                        <div id="personne" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            Vous devez parrainer un minimum de 3 personnes directement sur la scène des DEMARREURS.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#plus" aria-expanded="false" aria-controls="collapseThree">
+                            Et si j’enregistre plus de 3 personnes ?
+                          </button>
+                        </h2>
+                        <div id="plus" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            3 personnes seront placées sous vous et le reste se répandra sur vos filleuls qui n’ont parrainé personne sous eux, aidant ainsi votre génération à croître plus rapidement
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#recompense" aria-expanded="false" aria-controls="collapseThree">
+                            Quand puis-je obtenir mes récompenses et bonus ?
+                          </button>
+                        </h2>
+                        <div id="recompense" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            Les prix sont décernés après la fin de chaque étape.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dowline" aria-expanded="false" aria-controls="collapseThree">
+                            Est-il possible que mes DOWLINES s’échappent de moi ?
+                          </button>
+                        </h2>
+                        <div id="dowline" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            Non, il n’y a pas de rupture car il s’agit d’une matrice de suivi, ce qui signifie que vos filleuls vous suivent tout au long de votre vie dans ce réseau.
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container-fluid bg-primary m-top p-top-mini p-bottom-mini">
+          <div class="row">
+              <div class="col-lg-12 text-white">
+                  <i class="fa fa-copyright" aria-hidden="true"></i> 2021 SOS Santé Pour Tous
+              </div>
+          </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</body>
+</html>
