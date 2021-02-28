@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.core.exceptions import ValidationError
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.db import transaction
 from django.urls import reverse
-
 from .models import CashFoodMember, User, Affilie
 from .forms import CashFoodSignInForm
 
@@ -39,10 +42,10 @@ def dashboard(request):
 def home(request):
     return render(request, 'index.html')
 
+
 def signin_with_code(request):
     """
         Page d'inscription avec un code : signin-code
-
     """
     form = CashFoodSignInForm()
     if request.method == 'POST':
@@ -55,22 +58,33 @@ def signin_with_code(request):
             phone_number = form.cleaned_data['phone_number']
             code = form.cleaned_data['code']
 
-            # Inscription du candidat
+            #  ================== INSCRIPTION DU CANDIDAT ===================
             current_cashfoodmember = CashFoodMember.objects.get(code=code)
-            # Creation du compte utilisateur
-            user = User(username=username, email=email)
-            user.set_password(password)
-            user.save()
-            if current_cashfoodmember.user is None:
-                current_cashfoodmember.user = user
-                current_cashfoodmember.save()
+            # ETAPE 2: Creation du compte utilisateur
+            try:
+                with transaction.atomic():
+                    user = User(username=username, email=email)
+                    user.set_password(password)
+                    user.save()
+                    if current_cashfoodmember.user is None:
+                        current_cashfoodmember.user = user
+                        current_cashfoodmember.save()
+                    else:
+                        CashFoodMember.objects.create(user=user, phone_number=phone_number)
+                        # Affiliation
+                        aff = Affilie(parent=current_cashfoodmember, username=username, code=code)
+                        # Verification du modele
+                        aff.full_clean(exclude=['code', 'username'])
+                        aff.save()
+            except ValidationError:
+                form = CashFoodSignInForm(request.POST)
+                messages.error(request, "Cet utilisateur a deja atteint le quota d'affilie")
             else:
-                CashFoodMember.objects.create(user=user, phone_number=phone_number)
-                # Affiliation
-                Affilie.objects.create(parent=current_cashfoodmember, username=username, code=code)
-            return redirect('login')
+                messages.success(request, "Inscription reussi, vous pouvez vous connectez !!")
+                return redirect('login')
     return render(request, 'users/inscription.html', { 'form': form })
 
+@transaction.atomic
 def signin_with_link(request, code):
     """
         Page d'affiliation : affiliation
@@ -101,10 +115,12 @@ def signin_with_link(request, code):
     return render(request, 'users/affiliate.html', { 'form': form, 'code': code })
 
 @login_required
+@require_http_methods(['POST'])
 def create_link_affiliation(request):
-    """ Cette vue permet d'affilier un utilisateur 
-        - code : str
-        Retourne un objet json contenant le lien de parainnage
+    """ 
+        Cette vue permet d'affilier un utilisateur 
+            - code : str
+            Retourne un objet json contenant le lien de parainnage
     """
     uri = reverse('affiliation', args=[request.user.cashfoodmember.code], current_app='users')
     data = {
@@ -112,6 +128,7 @@ def create_link_affiliation(request):
     }
     return JsonResponse(data)
 
+@login_required
 def logout(request):
     """
         Page de deconnexion utilisateur : logout
