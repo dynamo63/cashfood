@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block title %}
+        SOS Santé Pour Tous | Bienvenue
+      {% endblock  %}
+    </title>
+    {% block extrastyle %}
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+      <link rel="stylesheet" href="{% static 'css/sbf-css.css' %}">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+      <style>
+        .alert{
+          position: absolute;
+          top: 10%;
+          left: 9%;
+          width: 50%;
+          z-index: 99;
+        }
+
+        @media screen and (max-width:600px){
+          .alert{
+            width: 90%;
+          }
+        }
+      </style>
+    {% endblock  %}
+</head>
+<body>
+
+{% if messages %}
+    {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" {% endif %}>
+          <strong>{{ message }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+   
+{% block header %}
+  <div class="container-fluid bg-primary">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 text-white">
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item">Adresse Physique: POG GABON. P.B : 3304
+                        </li>
+                    <li class="list-group-item">
+                      Adresse Email: <a href="mailto:info@sbf-sos.org" class="text-white">info@sbf-sos.org</a>
+                    </li>
+                    <li class="list-group-item">
+                      Numéro de Téléphone: <a href="tel:+24162991012" class="text-white">+ 241 62 99 10 12</a>
+                    </li>
+                  </ul>
+            </div>
+        </div>
+    </div>
+{% endblock header %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}
+  <footer class="container-fluid bg-primary m-top p-top-mini p-bottom-mini">
+      <div class="row">
+          <div class="col-lg-12 text-white">
+              <i class="fa fa-copyright" aria-hidden="true"></i> 2021 SOS Santé Pour Tous
+          </div>
+      </div>
+  </footer>
+{% endblock  %}
+
+{% block extrajs %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+{% endblock  %}
+    
+</body>
+</html>

@@ -1,81 +1,55 @@
+{% extends "layout.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS Santé Pour Tous | Bienvenue</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/sbf-css.css' %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container-fluid bg-primary">
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1 text-white">
-                <ul class="list-group list-group-horizontal">
-                    <li class="list-group-item">Adresse Physique: POG GABON. P.B : 3304
-                        </li>
-                    <li class="list-group-item">Adresse Email: info@sbf-sos.org
-                    </li>
-                    <li class="list-group-item">Numéro de Téléphone: + 241 62 99 10 12
-                    </li>
-                  </ul>
-            </div>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 offset-lg-3 m-top-mini cnx-container">
-                <div class="row m-bottom-mini">
-                    <div class="col-lg-8 offset-lg-2 text-center">
-                        <img src="{% static 'images/logo_new.png' %}" alt="logo sbf" class="img-fluid">
-                    </div>
+{% block content %}
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3 m-top-mini cnx-container">
+            <div class="row m-bottom-mini">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <img src="{% static 'images/logo_new.png' %}" alt="logo sbf" class="img-fluid">
                 </div>
-                <form class="row g-3" method="POST" action="">
-                    {% csrf_token %}
-                    <div class="col-md-6">
-                      <label for="nom" class="form-label">Nom d'utilisateur</label>
-                      <input type="text" class="form-control" name="username" id="nom">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="code" class="form-label">Code du Parrain</label>
-                        <input type="text" class="form-control" name="code" id="code">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputEmail4" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email"  id="inputEmail4">
-                      </div>
-                      <div class="col-md-6">
-                          <label for="telephone" class="form-label">Numéro de téléphone</label>
-                          <input type="tel" class="form-control" name="phone_number" id="telephone">
-                      </div>
-                    <div class="col-md-6">
-                      <label for="motdepasse" class="form-label">Mot de passe</label>
-                      <input type="password" class="form-control" name="password" id="motdepasse">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="confirmation" class="form-label">Confirmer le mot de passe</label>
-                        <input type="password" class="form-control" name="confirm_password" id="confirmation">
-                      </div>
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                          J'accepte <a href="#"><b>les conditions</b></a> fixés par SBF.
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Valider l'inscription</button>
-                    </div>
-                  </form>
-                  <a href="#">Revenir sur le site</a>
             </div>
+            <form class="row g-3" method="POST" action="">
+                {% csrf_token %}
+                <div class="col-md-6">
+                  <label for="nom" class="form-label">Nom d'utilisateur</label>
+                  <input type="text" class="form-control" name="username" id="nom">
+                </div>
+                <div class="col-md-6">
+                    <label for="code" class="form-label">Code du Parrain</label>
+                    <input type="text" class="form-control" name="code" id="code">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email"  id="inputEmail4">
+                  </div>
+                  <div class="col-md-6">
+                      <label for="telephone" class="form-label">Numéro de téléphone</label>
+                      <input type="tel" class="form-control" name="phone_number" id="telephone">
+                  </div>
+                <div class="col-md-6">
+                  <label for="motdepasse" class="form-label">Mot de passe</label>
+                  <input type="password" class="form-control" name="password" id="motdepasse">
+                </div>
+                <div class="col-md-6">
+                    <label for="confirmation" class="form-label">Confirmer le mot de passe</label>
+                    <input type="password" class="form-control" name="confirm_password" id="confirmation">
+                  </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                      J'accepte <a href="#"><b>les conditions</b></a> fixés par SBF.
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Valider l'inscription</button>
+                </div>
+              </form>
+              <a href="{% url 'home' %}">Revenir sur le site</a>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-</body>
-</html>
+  </div>
+{% endblock content %}
