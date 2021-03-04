@@ -1,17 +1,17 @@
 from django.contrib.auth.backends import ModelBackend
-from .models import CashFoodMember, User
+from .models import SBFMember, User
 
-class CashFoodBackend(ModelBackend):
+class SBFBackend(ModelBackend):
 
     def authenticate(self, request, **kwargs):
         code_user = kwargs['code']
         password = kwargs['password']
 
         try:
-            cashmember = CashFoodMember.objects.get(code=code_user)
-            if cashmember.user.check_password(password) is True:
-                return cashmember
-        except CashFoodMember.DoesNotExist:
+            sbfmember = SBFMember.objects.get(code=code_user)
+            if sbfmember.user.check_password(password) is True:
+                return sbfmember
+        except SBFMember.DoesNotExist:
             pass
 
     def get_user(self, user_id):

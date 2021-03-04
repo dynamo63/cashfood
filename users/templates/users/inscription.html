@@ -13,28 +13,53 @@
             <form class="row g-3" method="POST" action="">
                 {% csrf_token %}
                 <div class="col-md-6">
-                  <label for="nom" class="form-label">Nom d'utilisateur</label>
-                  <input type="text" class="form-control" name="username" id="nom">
+                  <label for="nom" class="form-label">Code du Parrain</label>
+                  <input type="text" class="form-control {% if form.code_parrain.errors %} is-invalid {% endif %}" name="code_parrain" id="code_parrain" placeholder="SBF..." aria-describedby="validationServer09Feedback">
+                  <div id="validationServer09Feedback" class="invalid-feedback">
+                    {{ form.code_parrain.errors }}
+                  </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="code" class="form-label">Code du Parrain</label>
-                    <input type="text" class="form-control" name="code" id="code">
+                  <label for="nom" class="form-label">Nom d'utilisateur</label>
+                  <input type="text" class="form-control {% if form.username.errors %} is-invalid {% endif %}" name="username" id="nom" required placeholder="Votre Nom" aria-describedby="validationServer01Feedback">
+                  <div id="validationServer01Feedback" class="invalid-feedback">
+                    {{ form.username.errors }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="code" class="form-label">Code</label>
+                    <input type="text" class="form-control {% if form.code.errors %} is-invalid {% endif %}" name="code" id="code" required placeholder="Votre Code" aria-describedby="validationServer02Feedback" />
+                    <div id="validationServer02Feedback" class="invalid-feedback">
+                      {{ form.code.errors }}
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label for="inputEmail4" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email"  id="inputEmail4">
+                    <input type="email" class="form-control {% if form.email.errors %} is-invalid {% endif %}" name="email"  id="inputEmail4" required placeholder="Email" aria-describedby="validationServer03Feedback">
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                      {{ form.email.errors }}
+                    </div>
                   </div>
                   <div class="col-md-6">
                       <label for="telephone" class="form-label">Numéro de téléphone</label>
-                      <input type="tel" class="form-control" name="phone_number" id="telephone">
+                      <input type="tel" class="form-control {% if form.phone_number.errors %} is-invalid {% endif %}" name="phone_number" id="telephone" required placeholder="Numéro de téléphone" aria-describedby="validationServer04Feedback">
+                      <div id="validationServer04Feedback" class="invalid-feedback">
+                        {{ form.phone_number.errors }}
+                      </div>
                   </div>
                 <div class="col-md-6">
                   <label for="motdepasse" class="form-label">Mot de passe</label>
-                  <input type="password" class="form-control" name="password" id="motdepasse">
+                  <input type="password" class="form-control {% if form.password.errors %} is-invalid {% endif %}" name="password" id="motdepasse" required placeholder="Mot de Passe" aria-describedby="validationServer05Feedback">
+                  <div id="validationServer05Feedback" class="invalid-feedback">
+                    {{ form.password.errors }}
+                  </div>
                 </div>
                 <div class="col-md-6">
                     <label for="confirmation" class="form-label">Confirmer le mot de passe</label>
-                    <input type="password" class="form-control" name="confirm_password" id="confirmation">
+                    <input type="password" class="form-control {% if form.confirm_password.errors %} is-invalid {% endif %}" name="confirm_password" id="confirmation" required placeholder="Retapez le meme mot de passe" aria-describedby="validationServer06Feedback">
+                    <div id="validationServer06Feedback" class="invalid-feedback">
+                      {{ form.confirm_password.errors }}
+                    </div>
                   </div>
                 <div class="col-12">
                   <div class="form-check">

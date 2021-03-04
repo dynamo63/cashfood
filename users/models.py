@@ -4,7 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
 from .utils import get_random_code
 
-class CashFoodMember(models.Model):
+class SBFMember(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True, unique=False)
     phone_number = PhoneNumberField(null=False, blank=True, unique=True, verbose_name="Numero de Telephone")
     rugby_level = models.PositiveSmallIntegerField(
@@ -16,7 +16,8 @@ class CashFoodMember(models.Model):
                         unique=True,
                         max_length=8
                     )
-    is_member = models.BooleanField(default=False)
+    is_eligible = models.BooleanField(default=False)
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
     objects = models.Manager()
 
@@ -29,25 +30,15 @@ class CashFoodMember(models.Model):
             return f"{self.user.username}"
         return f"{self.code} - Number Phone: {self.phone_number}"
 
-class Affilie(models.Model):
-    parent = models.ForeignKey(CashFoodMember, on_delete=models.CASCADE)
-    username = models.CharField(max_length=255)
-    code = models.CharField(max_length=8)
+class Codes(models.Model):
+    code_parrain = models.CharField(verbose_name="Code Parrain", max_length=20, unique=True)
+    sbfmember = models.OneToOneField(SBFMember, on_delete=models.CASCADE)
 
     objects = models.Manager()
 
     class Meta:
-        verbose_name = "Affilie"
-        verbose_name_plural = "Affilies"
-
-    def clean(self):
-        """
-            Verifier la validite du modele
-        """
-        # ETAPE 1: Si le parent a entre 0 et 4 affilies 
-        if (0 < self.parent.affilie_set.count() < 4) is False:
-            raise ValidationError('Ce membre a deja atteint son quota d\'affilie', code='invalid')
-        
+        verbose_name = "Code Parrain"
+        verbose_name_plural = "Codes Parrains"
 
     def __str__(self):
-        return f"{self.username} - Code: {self.code} - Parent Code: {self.parent.code}"
+        return f"{self.sbfmember} - {self.code}"
