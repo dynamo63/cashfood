@@ -2,14 +2,12 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.core.exceptions import ValidationError
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
 from django.db import transaction
 from django.urls import reverse
-from .models import CashFoodMember, User, Affilie
-from .forms import CashFoodSignInForm
+from .models import SBFMember, User, Codes, listing_affilies
+from .forms import SBFSignInForm
+from .utils import get_code_parrain
+
 
 def login(request):
     """
@@ -20,9 +18,9 @@ def login(request):
     if request.method == 'POST':
         code = request.POST['code']
         password = request.POST['password']
-        cashmember = authenticate(code=code, password=password)
-        if cashmember is not None:
-            auth_login(request, cashmember.user, backend='users.backends.CashFoodBackend')
+        sbfmember = authenticate(code=code, password=password)
+        if sbfmember is not None:
+            auth_login(request, sbfmember.user, backend='users.backends.SBFBackend')
             return redirect('dashboard')
     return render(request, 'users/connexion.html')
 
@@ -31,25 +29,29 @@ def dashboard(request):
     """
         Page d'accueil : home
     """
-    cashmember = CashFoodMember.objects.get(user=request.user)
-    affilies = cashmember.affilie_set.all()
+    sbfmember = SBFMember.objects.get(user=request.user)
+    affilies = listing_affilies(sbfmember=sbfmember)
+    code = Codes.objects.get(sbfmember=sbfmember)
+    for aff in affilies:
+        aff.team = listing_affilies(sbfmember=aff)
     data = {
-        'affilies': affilies
+        'affilies': affilies,
+        'code': code
     }
 
-    return render(request, 'users/home.html', data)
+    return render(request, 'users/dashboard.html', data)
 
 def home(request):
     return render(request, 'index.html')
 
-
+@transaction.atomic
 def signin_with_code(request):
     """
         Page d'inscription avec un code : signin-code
     """
-    form = CashFoodSignInForm()
+    form = SBFSignInForm()
     if request.method == 'POST':
-        form = CashFoodSignInForm(request.POST)
+        form = SBFSignInForm(request.POST)
         if form.is_valid():
             # Recuperation des donnees
             username = form.cleaned_data['username']
@@ -57,76 +59,27 @@ def signin_with_code(request):
             email = form.cleaned_data['email']
             phone_number = form.cleaned_data['phone_number']
             code = form.cleaned_data['code']
+            code_parrain = form.cleaned_data['code_parrain']
 
             #  ================== INSCRIPTION DU CANDIDAT ===================
-            current_cashfoodmember = CashFoodMember.objects.get(code=code)
-            # ETAPE 2: Creation du compte utilisateur
-            try:
-                with transaction.atomic():
-                    user = User(username=username, email=email)
-                    user.set_password(password)
-                    user.save()
-                    if current_cashfoodmember.user is None:
-                        current_cashfoodmember.user = user
-                        current_cashfoodmember.save()
-                    else:
-                        CashFoodMember.objects.create(user=user, phone_number=phone_number)
-                        # Affiliation
-                        aff = Affilie(parent=current_cashfoodmember, username=username, code=code)
-                        # Verification du modele
-                        aff.full_clean(exclude=['code', 'username'])
-                        aff.save()
-            except ValidationError:
-                form = CashFoodSignInForm(request.POST)
-                messages.error(request, "Cet utilisateur a deja atteint le quota d'affilie")
-            else:
-                messages.success(request, "Inscription reussi, vous pouvez vous connectez !!")
-                return redirect('login')
-    return render(request, 'users/inscription.html', { 'form': form })
-
-@transaction.atomic
-def signin_with_link(request, code):
-    """
-        Page d'affiliation : affiliation
-    """
-    form = CashFoodSignInForm()
-    if request.method == 'POST':
-        form = CashFoodSignInForm(request.POST)
-        if form.is_valid():
-            # Recuperation des donnees
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            email = form.cleaned_data['email']
-            phone_number = form.cleaned_data['phone_number']
-            code = form.cleaned_data['code']
-
-            # Inscription du candidat
-            current_cashfoodmember = CashFoodMember.objects.get(code=code)
-            # Creation du compte utilisateur
             user = User(username=username, email=email)
             user.set_password(password)
             user.save()
 
-            if current_cashfoodmember.user is not None:
-                CashFoodMember.objects.create(user=user, phone_number=phone_number)
-                # Affiliation
-                Affilie.objects.create(parent=current_cashfoodmember, username=username, code=code)
-                return redirect('login')
-    return render(request, 'users/affiliate.html', { 'form': form, 'code': code })
+            # Creation du membre SBF
+            sbfmember = SBFMember.objects.get(code=code)
+            sbfmember.user = user
+            sbfmember.phone_number = phone_number
 
-@login_required
-@require_http_methods(['POST'])
-def create_link_affiliation(request):
-    """ 
-        Cette vue permet d'affilier un utilisateur 
-            - code : str
-            Retourne un objet json contenant le lien de parainnage
-    """
-    uri = reverse('affiliation', args=[request.user.cashfoodmember.code], current_app='users')
-    data = {
-        'link': request.build_absolute_uri(uri)
-    }
-    return JsonResponse(data)
+            keys_parent = Codes.objects.filter(code_parrain=code_parrain)
+            if keys_parent is not None:
+                parent = keys_parent.first()
+                print(parent)
+                sbfmember.parent = parent.sbfmember
+            sbfmember.save()
+            messages.success(request, "Inscription Reussi, rentrez vos informations pour vous connecter")
+            return redirect('login')
+    return render(request, 'users/inscription.html', { 'form': form })
 
 @login_required
 def logout(request):

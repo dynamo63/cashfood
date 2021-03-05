@@ -1,22 +1,17 @@
 from django.contrib import admin
-from .models import CashFoodMember, Affilie
+from .models import SBFMember, Codes
 
-@admin.register(CashFoodMember)
-class CashFoodAdmin(admin.ModelAdmin):
-    list_display = ("code", "phone_number", "username", "rugby_level","nb_affilie")
+@admin.register(SBFMember)
+class SBFMemberAdmin(admin.ModelAdmin):
+    list_display = ['user', 'code', 'phone_number', 'parent']
+    list_display_links = ['code']
+    list_filter = ['parent']
+    ordering = ['-user']
+    exclude = ('rugby_level',)
 
-    def username(self, obj):
-        try:
-            return obj.user.username
-        except AttributeError:
-            return "Aucun"
+    empty_value_display = "Aucun"
+    
 
-    def nb_affilie(self, obj):
-        return obj.affilie_set.count()
-
-    nb_affilie.short_description = "Nombre d'Affilie"
-    username.short_description = "Nom du Membre"
-
-@admin.register(Affilie)
-class AffilieAdmin(admin.ModelAdmin):
-    list_display = ['username', 'code', 'parent']
+@admin.register(Codes)
+class CodesAdmin(admin.ModelAdmin):
+    list_display = ['code_parrain','sbfmember']

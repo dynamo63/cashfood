@@ -1,11 +1,12 @@
 from django import forms
 from phonenumber_field.formfields import PhoneNumberField
 
-from .models import CashFoodMember 
+from .models import SBFMember, Codes
 
-class CashFoodSignInForm(forms.Form):
+class SBFSignInForm(forms.Form):
+    code_parrain = forms.CharField(label='Code du Parrain', required=False, help_text='Optionnel')
     username = forms.CharField(label='Nom utilisateur', max_length=100)
-    code = forms.CharField(label='Code du Parrain')
+    code = forms.CharField(label='Code')
     email = forms.EmailField(max_length=255, required=False, label='Email')
     phone_number = PhoneNumberField()
     password = forms.CharField(label='Mot de Passe', widget=forms.PasswordInput)
@@ -18,11 +19,23 @@ class CashFoodSignInForm(forms.Form):
             return confirm_password
         raise forms.ValidationError('Les mots de passe ne sont pas identiques')
 
+    def clean_code_parrain(self):
+        code_parrain = self.cleaned_data['code_parrain']
+        keys = Codes.objects.filter(code_parrain=code_parrain)
+        if keys is None:
+            raise forms.ValidationError("Ce code n'existe pas")
+        else:
+            sbfmember = SBFMember.objects.get(code=keys[0].sbfmember.code)
+            affilies = SBFMember.objects.filter(parent=sbfmember)
+            if affilies.count() >= 4:
+                raise forms.ValidationError("Ce membre a deja atteint le quota d'affilie")
+        return code_parrain
+
     def clean_code(self):
         code = self.cleaned_data['code']
         try:
-            CashFoodMember.objects.get(code=code)
-        except CashFoodMember.DoesNotExist:
+            SBFMember.objects.get(code=code)
+        except SBFMember.DoesNotExist:
             raise forms.ValidationError('Ce code n\'existe pas')
         else:
             return code
