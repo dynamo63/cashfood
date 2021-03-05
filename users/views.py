@@ -2,14 +2,12 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.core.exceptions import ValidationError
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
 from django.db import transaction
 from django.urls import reverse
-from .models import SBFMember, User, Codes
+from .models import SBFMember, User, Codes, listing_affilies
 from .forms import SBFSignInForm
+from .utils import get_code_parrain
+
 
 def login(request):
     """
@@ -32,9 +30,13 @@ def dashboard(request):
         Page d'accueil : home
     """
     sbfmember = SBFMember.objects.get(user=request.user)
-    affilies = SBFMember.objects.filter(parent=sbfmember)
+    affilies = listing_affilies(sbfmember=sbfmember)
+    code = Codes.objects.get(sbfmember=sbfmember)
+    for aff in affilies:
+        aff.team = listing_affilies(sbfmember=aff)
     data = {
-        'affilies': affilies
+        'affilies': affilies,
+        'code': code
     }
 
     return render(request, 'users/dashboard.html', data)
@@ -69,10 +71,11 @@ def signin_with_code(request):
             sbfmember.user = user
             sbfmember.phone_number = phone_number
 
-            parent = Codes.objects.filter(code_parrain=code_parrain)
-            if parent is not None:
+            keys_parent = Codes.objects.filter(code_parrain=code_parrain)
+            if keys_parent is not None:
+                parent = keys_parent.first()
                 print(parent)
-                sbfmember.parent = parent.first()
+                sbfmember.parent = parent.sbfmember
             sbfmember.save()
             messages.success(request, "Inscription Reussi, rentrez vos informations pour vous connecter")
             return redirect('login')

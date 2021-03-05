@@ -4,9 +4,16 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
 from .utils import get_random_code
 
+def listing_affilies(sbfmember):
+    affilies = SBFMember.objects.filter(parent=sbfmember)
+    return affilies
+
 class SBFMember(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True, unique=False)
-    phone_number = PhoneNumberField(null=False, blank=True, unique=True, verbose_name="Numero de Telephone")
+    phone_number = PhoneNumberField(null=True, 
+                            blank=True, 
+                            verbose_name="Numero de Telephone"
+                        )
     rugby_level = models.PositiveSmallIntegerField(
                         default=0,
                         verbose_name="Niveau"
@@ -16,7 +23,6 @@ class SBFMember(models.Model):
                         unique=True,
                         max_length=8
                     )
-    is_eligible = models.BooleanField(default=False)
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
     objects = models.Manager()
@@ -28,11 +34,11 @@ class SBFMember(models.Model):
     def __str__(self):
         if self.user is not None:
             return f"{self.user.username}"
-        return f"{self.code} - Number Phone: {self.phone_number}"
+        return f"{self.code}"
 
 class Codes(models.Model):
     code_parrain = models.CharField(verbose_name="Code Parrain", max_length=20, unique=True)
-    sbfmember = models.OneToOneField(SBFMember, on_delete=models.CASCADE)
+    sbfmember = models.OneToOneField(SBFMember, on_delete=models.CASCADE, verbose_name="Utilisateur")
 
     objects = models.Manager()
 
@@ -41,4 +47,4 @@ class Codes(models.Model):
         verbose_name_plural = "Codes Parrains"
 
     def __str__(self):
-        return f"{self.sbfmember} - {self.code}"
+        return f"Code Parrain: {self.code_parrain}"

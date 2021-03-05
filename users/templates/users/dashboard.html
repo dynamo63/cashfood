@@ -10,12 +10,19 @@
     <p>
         <a href="{% url 'logout' %}">Deconnexion</a>
     </p>
-    <p>
-        <a href="{% url 'create-link' %}" >Generer le lien</a>
-    </p>
+    <p>Code de parrainage : {{ code.code_parrain }} </p>
     <ul>
         {% for affilie in affilies %}
-            <li>{{ affilie.username }}</li>
+            <li>{{ affilie.user.username }}</li>
+            <ul>
+                {% if affilie.team %}
+                    {% for member in affilie.team %}
+                        <li>{{ member.user.username }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li> Rien a signaler </li>
+                {% endif %}
+            </ul>
         {% empty %}
             <li>Rien a signaler</li>
         {% endfor %}

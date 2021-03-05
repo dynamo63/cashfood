@@ -21,9 +21,14 @@ class SBFSignInForm(forms.Form):
 
     def clean_code_parrain(self):
         code_parrain = self.cleaned_data['code_parrain']
-        codes = Codes.objects.filter(code_parrain=code_parrain)
-        if codes is None:
+        keys = Codes.objects.filter(code_parrain=code_parrain)
+        if keys is None:
             raise forms.ValidationError("Ce code n'existe pas")
+        else:
+            sbfmember = SBFMember.objects.get(code=keys[0].sbfmember.code)
+            affilies = SBFMember.objects.filter(parent=sbfmember)
+            if affilies.count() >= 4:
+                raise forms.ValidationError("Ce membre a deja atteint le quota d'affilie")
         return code_parrain
 
     def clean_code(self):
