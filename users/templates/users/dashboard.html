@@ -1,3 +1,4 @@
+{% load users_extra %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,16 +14,7 @@
     <p>Code de parrainage : {{ code.code_parrain }} </p>
     <ul>
         {% for affilie in affilies %}
-            <li>{{ affilie.user.username }}</li>
-            <ul>
-                {% if affilie.team %}
-                    {% for member in affilie.team %}
-                        <li>{{ member.user.username }}</li>
-                    {% endfor %}
-                {% else %}
-                    <li> Rien a signaler </li>
-                {% endif %}
-            </ul>
+            {% show_teams affilie %}
         {% empty %}
             <li>Rien a signaler</li>
         {% endfor %}

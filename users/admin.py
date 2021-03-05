@@ -6,7 +6,6 @@ class SBFMemberAdmin(admin.ModelAdmin):
     list_display = ['user', 'code', 'phone_number', 'parent']
     list_display_links = ['code']
     list_filter = ['parent']
-    ordering = ['-user']
     exclude = ('rugby_level',)
 
     empty_value_display = "Aucun"
