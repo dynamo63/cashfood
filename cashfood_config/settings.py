@@ -32,8 +32,6 @@ ALLOWED_HOSTS = ['sbfgabon.herokuapp.com', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'admin_interface',
-    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -125,7 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'login'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -158,3 +155,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if os.environ.get('ENV') == 'PROD':
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Variables RUGBY
+
+DEMARREUR = 4
+RUGBY_1 = 20
