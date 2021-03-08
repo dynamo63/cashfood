@@ -1,23 +1,75 @@
-{% load users_extra %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello, my name is {{ user.username }} | {{ level }} </h1>
-    <p>
-        <a href="{% url 'logout' %}">Deconnexion</a>
-    </p>
-    <p>Code de parrainage : {{ code.code_parrain }} </p>
-    <ul>
-        {% for affilie in affilies %}
-            {% show_teams affilie %}
-        {% empty %}
-            <li>Rien a signaler</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "layout.html" %}
+{% load users_extra static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/tree.css' %}">
+{% endblock extrastyle %}
+
+{% block content %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Mon dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                          Code Parrain
+                        </a>
+                    </li>
+                </ul>
+                <a href="{% url 'logout' %}" class="btn btn-danger">
+                    Se deconnecter
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                Mon Code Parrain: <span class="text-danger fw-bold">{{ code.code_parrain }}</span>
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                il va vous permettre de parrainer d'autre personnes et agrandir votre equipe
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal">J'ai compris</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <main class="container mt-3">
+        <h1>Voici votre arbre</h1>
+
+        <div class="container">
+            <div class="row">
+                <div class="tree">
+                    <ul>
+                        <li>
+                            <a href="#">{{ user.username }}</a>
+                            <ul>
+                                {% for affilie in affilies %}
+                                    {% show_teams affilie %}
+                                {% empty %}
+                                    <li>Rien a signaler</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
