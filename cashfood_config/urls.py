@@ -22,6 +22,11 @@ urlpatterns = [
     path('', include('users.urls')),
 ]
 
+# Admin Config
+admin.site.site_header = "SBF Console"
+admin.site.site_title = "Site d'administration de SBF"
+admin.site.index_title = "SBF Console D'administration"
+
 if settings.DEBUG:
     from django.conf.urls.static import static
 

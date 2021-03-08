@@ -4,9 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
 from django.urls import reverse
-from .models import SBFMember, User, Codes, listing_affilies
+from .models import SBFMember, User, Codes, listing_affilies, get_total_aff
 from .forms import SBFSignInForm
-from .utils import get_code_parrain
+from .utils import get_code_parrain, get_level
 
 
 def login(request):
@@ -32,11 +32,13 @@ def dashboard(request):
     sbfmember = SBFMember.objects.get(user=request.user)
     affilies = listing_affilies(sbfmember=sbfmember)
     code = Codes.objects.get(sbfmember=sbfmember)
+    num_aff = get_total_aff(sbfmember)
     for aff in affilies:
         aff.team = listing_affilies(sbfmember=aff)
     data = {
         'affilies': affilies,
-        'code': code
+        'code': code,
+        'level': get_level(num_aff)
     }
 
     return render(request, 'users/dashboard.html', data)
@@ -74,7 +76,6 @@ def signin_with_code(request):
             keys_parent = Codes.objects.filter(code_parrain=code_parrain)
             if keys_parent is not None:
                 parent = keys_parent.first()
-                print(parent)
                 sbfmember.parent = parent.sbfmember
             sbfmember.save()
             messages.success(request, "Inscription Reussi, rentrez vos informations pour vous connecter")
@@ -87,4 +88,5 @@ def logout(request):
         Page de deconnexion utilisateur : logout
     """
     auth_logout(request)
+    messages.info(request, "Voulez-vous vous reconnecter ?")
     return redirect('login')
