@@ -10,7 +10,7 @@ class SBFBackend(ModelBackend):
         try:
             sbfmember = SBFMember.objects.get(code=code_user)
             if sbfmember.user.check_password(password) is True:
-                return sbfmember
+                return sbfmember.user
         except SBFMember.DoesNotExist:
             pass
 

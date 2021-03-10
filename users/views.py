@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
-from django.urls import reverse
 from .models import SBFMember, User, Codes, listing_affilies, get_total_aff
 from .forms import SBFSignInForm
 from .utils import get_code_parrain, get_level
@@ -18,9 +17,9 @@ def login(request):
     if request.method == 'POST':
         code = request.POST['code']
         password = request.POST['password']
-        sbfmember = authenticate(code=code, password=password)
-        if sbfmember is not None:
-            auth_login(request, sbfmember.user, backend='users.backends.SBFBackend')
+        user = authenticate(code=code, password=password)
+        if user is not None:
+            auth_login(request, user, backend='users.backends.SBFBackend')
             return redirect('dashboard')
     return render(request, 'users/connexion.html')
 
@@ -74,7 +73,7 @@ def signin_with_code(request):
             sbfmember.phone_number = phone_number
 
             keys_parent = Codes.objects.filter(code_parrain=code_parrain)
-            if keys_parent is not None:
+            if keys_parent.count() != 0:
                 parent = keys_parent.first()
                 sbfmember.parent = parent.sbfmember
             sbfmember.save()
