@@ -21,6 +21,8 @@ class SBFSignInForm(forms.Form):
 
     def clean_code_parrain(self):
         code_parrain = self.cleaned_data['code_parrain']
+        if code_parrain == '':
+            return code_parrain
         keys = Codes.objects.filter(code_parrain=code_parrain)
         if keys.count() == 0:
             raise forms.ValidationError("Ce code parrain n'existe pas")

@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
@@ -7,6 +8,5 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('inscription/', views.signin_with_code, name='signin-code'),
     path('deconnexion/', views.logout, name='logout'),
-    # path('create-link/', views.create_link_affiliation, name='create-link'),
-    # path('affiliation/<code>', views.signin_with_link, name='affiliation')
+    path('example/', TemplateView.as_view(template_name='tree.html'), name='example')
 ]
