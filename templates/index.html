@@ -18,12 +18,18 @@
                     <li class="nav-item">
                       <a class="nav-link" href="#">Gains</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'signin-code' %}">Inscription</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Connexion</a>
-                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'dashboard' %}">Tableau de Bord</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'signin-code' %}">Inscription</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
                     </li>
