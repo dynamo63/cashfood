@@ -48,7 +48,8 @@ any siblings*/
 }
 
 /*Remove space from the top of single children*/
-.tree li:only-child{ padding-top: 0;}
+.tree li:only-child{ 
+	padding-top: 0;}
 
 /*Remove left connector from first child and 
 right connector from last child*/
@@ -79,13 +80,13 @@ right connector from last child*/
     height: 20px;
 }
 
-.tree li a{
+.tree li div.parent{
 	border: 1px solid #ccc;
-	padding: 5px 10px;
+	/* padding: 5px 10px; */
 	text-decoration: none;
+	overflow: hidden;
 	color: #666;
 	font-family: arial, verdana, tahoma;
-	font-size: 1.7em;
 	display: inline-block;
 	
 	border-radius: 5px;
@@ -99,14 +100,14 @@ right connector from last child*/
 
 /*Time for some hover effects*/
 /*We will apply the hover effect the the lineage of the element also*/
-.tree li a:hover, .tree li a:hover+ul li a {
+.tree li > div:hover, .tree li > div:hover+ul li > div {
 	background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
 }
 /*Connector styles on hover*/
-.tree li a:hover+ul li::after, 
-.tree li a:hover+ul li::before, 
-.tree li a:hover+ul::before, 
-.tree li a:hover+ul ul::before{
+.tree li div:hover+ul li::after, 
+.tree li div:hover+ul li::before, 
+.tree li div:hover+ul::before, 
+.tree li div:hover+ul ul::before{
 	border-color:  #94a0b4;
 }
 

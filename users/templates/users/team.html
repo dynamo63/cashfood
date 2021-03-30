@@ -1,15 +1,24 @@
 {% load users_extra %}
+
 {% if team is not None %}
-    <li>
-        <a href="#">
-            {{ affilie.user.username }}
-        </a>
-        {% for member in team %}
-            <ul>
-                {% show_teams member %}
-            </ul>
-        {% endfor %}
-    </li>
+<li>
+    <div class="parent">
+        <div class="row py-0">
+            <p class="bg-success text-white w-100 fw-bold">
+               Code: <span>{{ affilie.codes.code_parrain }}</span> 
+            </p>
+            <i class="fa fa-user fa-4x" aria-hidden="true"></i>
+            <a href="#" class="lead text-decoration-none">
+                {{ affilie.user.username }}
+            </a>
+        </div>
+    </div>
+    {% for member in team %}
+    <ul>
+        {% show_teams member %}
+    </ul>
+    {% endfor %}
+</li>
 {% else %}
-    <li> Rien a signaler </li>
+<li> Rien a signaler </li>
 {% endif %}

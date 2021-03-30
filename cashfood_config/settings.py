@@ -158,5 +158,5 @@ if os.environ.get('ENV') == 'PROD':
 
 # Variables RUGBY
 
-DEMARREUR = 4
-RUGBY_1 = 20
+DEMARREUR = 3
+RUGBY_1 = 12

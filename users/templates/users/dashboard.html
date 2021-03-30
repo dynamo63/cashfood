@@ -30,6 +30,29 @@
         </div>
     </nav>
 
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Etat du compte</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Actif</h5>
+                        <p class="card-text">Votre compte est maintenant actif</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Niveau de RUGBY</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ level }}</h5>
+                        <p class="card-text">A ce stade, vous pouvez recuperer ...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -51,25 +74,6 @@
     </div>
 
     <main class="container mt-3">
-        <h1>Voici votre arbre</h1>
-
-        <div class="container">
-            <div class="row">
-                <div class="tree">
-                    <ul>
-                        <li>
-                            <a href="#">{{ user.username }}</a>
-                            <ul>
-                                {% for affilie in affilies %}
-                                    {% show_teams affilie %}
-                                {% empty %}
-                                    <li>Rien a signaler</li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <h1>Mes Cadeaux</h1>
     </main>
 {% endblock content %}

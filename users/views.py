@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
-from .models import SBFMember, User, Codes, listing_affilies, get_total_aff
+from .models import SBFMember, User, Codes, listing_affilies, listing_all_affs
 from .forms import SBFSignInForm
 from .utils import get_code_parrain, get_level
 
@@ -31,16 +31,44 @@ def dashboard(request):
     sbfmember = SBFMember.objects.get(user=request.user)
     affilies = listing_affilies(sbfmember=sbfmember)
     code = Codes.objects.get(sbfmember=sbfmember)
-    num_aff = get_total_aff(sbfmember)
+    num_aff = len(listing_all_affs(sbfmember))
     for aff in affilies:
         aff.team = listing_affilies(sbfmember=aff)
     data = {
         'affilies': affilies,
         'code': code,
-        'level': get_level(num_aff)
+        'level': get_level(num_aff),
+        'num_aff': num_aff
     }
 
     return render(request, 'users/dashboard.html', data)
+
+@login_required
+def organigramme(request):
+    sbfmember = SBFMember.objects.get(user=request.user)
+    affilies = listing_affilies(sbfmember=sbfmember)
+    for aff in affilies:
+        aff.team = listing_affilies(sbfmember=aff)
+    num_aff = len(listing_all_affs(sbfmember))
+    data = {
+        'affilies': affilies,
+        'num_aff': num_aff
+    }
+    return render(request, 'users/organigramme.html', data)
+
+@login_required
+def listing_members(request, code_sbfmember=None):
+    """
+       Listing of members of users 
+    """
+    if code_sbfmember is None:
+        sbfmember = request.user.sbfmember
+    else:
+        sbfmember = SBFMember.objects.filter(codes__code_parrain=code_sbfmember)[0]
+    data = {
+        'members': listing_all_affs(sbfmember)
+    }
+    return render(request, 'users/liste_membres.html', context=data)
 
 def home(request):
     return render(request, 'index.html')
