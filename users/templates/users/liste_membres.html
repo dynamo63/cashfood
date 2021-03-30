@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% load users_extra static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+{% endblock extrastyle %}
+
+{% block content %}
+    <ul>
+        {% for member in members %}
+            <li>{{ member.user.username }}</li>
+                <ul>
+                    <li>Code: {{ member.codes.code_parrain }}</li>
+                    <li>Inscription: {{ member.user.date_created }}</li>
+                    <li>
+                        <a href="{% url 'listing-members' member.codes.code_parrain %}">
+                            Voir ses actions
+                        </a>
+                    </li>
+                </ul>
+        {% empty %}
+            <li>RAS</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

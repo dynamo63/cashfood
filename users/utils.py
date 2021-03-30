@@ -16,4 +16,4 @@ def get_level(num_aff):
     elif num_aff == settings.RUGBY_1:
         return "Rugby 1"
     else:
-        return ""
+        return "Pas encore defini"

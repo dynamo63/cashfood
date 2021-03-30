@@ -3,30 +3,40 @@ from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
 from .utils import get_random_code
+from itertools import chain
 
 def listing_affilies(sbfmember):
     affilies = SBFMember.objects.filter(parent=sbfmember)
     return affilies
 
+def listing_all_affs(sbfmember):
+    liste = list(SBFMember.objects.filter(parent=sbfmember))
+    while len(liste) > 1:
+        for aff in liste:
+            liste += list(listing_all_affs(aff))
+        break
+    return liste
+
 def get_num_affilies(sbfmember):
     return SBFMember.objects.filter(parent=sbfmember).count()
 
-def get_total_aff(sbfmember):
-    """
-        Retourne le nombre total des affiflies (avec descendance)
-        d'un membre SBF
-    """
-    num_aff = 0
-    aff = listing_affilies(sbfmember)
-    num_aff += aff.count() if aff.count() == 4 else 0
-    # On verifie si il est demarreur
-    if num_aff == 4:
-        # On verifie si il est rugby 1
-        total_affs = sum([get_num_affilies(m) for m in aff])
-        num_aff += total_affs if total_affs == 16 else 0
-    if num_aff == 20:
-        pass
-    return num_aff
+
+# def get_total_aff(sbfmember):
+#     """
+#         Retourne le nombre total des affiflies (avec descendance)
+#         d'un membre SBF
+#     """
+#     num_aff = 0
+#     aff = listing_affilies(sbfmember)
+#     num_aff += aff.count() if aff.count() == 3 else 0
+#     # On verifie si il est demarreur
+#     if num_aff == 3:
+#         # On verifie si il est rugby 1
+#         total_affs = sum([get_num_affilies(m) for m in aff])
+#         num_aff += total_affs if total_affs == 16 else 0
+#     if num_aff == 20:
+#         pass
+#     return num_aff
 
 
 

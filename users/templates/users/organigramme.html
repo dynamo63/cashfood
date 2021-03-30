@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% load users_extra static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/tree.css' %}">
+{% endblock extrastyle %}
+
+{% block content %}
+    <header class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'listing-members' %}" class="btn btn-primary">
+                    Voir la liste des membres
+                </a>
+            </div>
+            <div class="col">
+                <div class="col-lg-5 p-2 text-white rounded bg-success">
+                   {{ num_aff }} membres sur mon reseau
+                </div>
+            </div>
+        </div>
+    </header>
+    <h1>Voici votre arbre</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="tree">
+                <ul>
+                    <li>
+                        <div class="parent px-5 py-3">
+                            <div class="row py-0">
+                                <i class="fa fa-user fa-4x" aria-hidden="true"></i>
+                                <a href="#" class="lead text-decoration-none">
+                                    {{ user.username }}
+                                </a>
+                            </div>
+                        </div>
+                        <ul>
+                            {% for affilie in affilies %}
+                                {% show_teams affilie %}
+                            {% empty %}
+                                <li>Rien a signaler</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
