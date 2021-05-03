@@ -1,13 +1,7 @@
-{% extends "layout.html" %}
-
-{% load users_extra static %}
-
-{% block extrastyle %}
-    {{ block.super }}
-{% endblock extrastyle %}
+{% extends "dashboard_layout.html" %}
 
 {% block content %}
-    <ul>
+    {% comment %} <ul>
         {% for member in members %}
             <li>{{ member.user.username }}</li>
                 <ul>
@@ -22,5 +16,113 @@
         {% empty %}
             <li>RAS</li>
         {% endfor %}
-    </ul>
+    </ul> {% endcomment %}
+    <div class="container-fluid bg-dark">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 m-top-mini m-bottom-mini">
+                <div class="row">
+                    <div class="col-lg-12 m-top-mini m-bottom-mini">
+                        <h2 class="text-white text-center">Bienvenue sur SBF</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                              <h6 class="card-title">ETAT DU COMPTE </h6>
+                              <h3 class="card-subtitle mb-2 fw-bold">Actif</h3>
+                              <p class="card-text">
+                                  <small>vous pouvez récuperer vos gains</small>
+                              </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                              <h6 class="card-title">GAINS CUMULÉS</h6>
+                              <h3 class="card-subtitle mb-2 fw-bold">0 FCFA</h3>
+                              <p class="card-text">
+                                  <small>&nbsp</small>
+                              </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                              <h6 class="card-title">GAINS EN ATTENTE</h6>
+                              <h3 class="card-subtitle mb-2 fw-bold">0 FCFA</h3>
+                              <p class="card-text">
+                                  <small>&nbsp</small>
+                              </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-top-mini m-bottom-mini">
+                    <div class="col-lg-12">
+                        <div class="card bg-white">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <span class="card-title fw-bold">Etat de vox gains</span> 
+                                        <a href="#" class="btn btn-sm btn-secondary">voir les détails</a>
+                                    </div>
+                                </div>
+                                <table class="table m-top-mini">
+                                    <thead class="bg-primary text-white">
+                                      <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">NOM ET PRENOM</th>
+                                        <th scope="col">STATUT</th>
+                                        <th scope="col">MATRICE ACTUELLE</th>
+                                        <th scope="col">PHONE/EMAIL</th>
+                                        <th scope="col">PAYS</th>
+                                        <th scope="col">DATE INSCR</th>
+                                        <th scope="col">ACTIONS</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for member in members %}
+                                            <tr>
+                                                <td>{{ member.codes.code_parrain }}</td>
+                                                <td> {{ member.user.username }} </td>
+                                                <td>
+                                                    {% if member.is_active %}
+                                                        Actif
+                                                    {% else %}
+                                                        Inactif
+                                                    {% endif %}
+                                                </td>
+                                                <td> matrice 0 </td>
+                                                <td>
+                                                    {% if member.phone_number %}
+                                                        {{ member.phone_number }}
+                                                    {% else %}
+                                                        Non enregistre
+                                                    {% endif %}
+                                                </td>
+                                                <td> Gabon </td>
+                                                <td> {{ member.user.date_joined }} </td>
+                                                <td>
+                                                    <a href="{% url 'listing-members' member.codes.code_parrain %}">
+                                                        Voir ses actions
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr> 
+                                                <td colspan="8">Aucun affilie pour le moment</td>
+                                            <tr>  
+                                        {% endfor %}
+                                    </tbody>
+                                  </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

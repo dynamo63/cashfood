@@ -32,6 +32,19 @@
 }
 /*----fin de la nav ----*/
 
+/*----la nav----*/
+.nav-user{
+    margin-top: 0%;
+}
+.nav-user .nav-link {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+/*----fin de la nav ----*/
+
 /*-----les marges externes -----*/
 .m-top-xmini{
     margin-top: .5%;

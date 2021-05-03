@@ -11,5 +11,5 @@ urlpatterns = [
     path('dashboard/liste-des-membres/<code_sbfmember>', views.listing_members, name='listing-members'),
     path('inscription/', views.signin_with_code, name='signin-code'),
     path('deconnexion/', views.logout, name='logout'),
-    path('example/', TemplateView.as_view(template_name='tree.html'), name='example'),
+    path('example/', TemplateView.as_view(template_name='dashboard_layout.html'), name='example'),
 ]

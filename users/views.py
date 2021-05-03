@@ -34,11 +34,12 @@ def dashboard(request):
     num_aff = len(listing_all_affs(sbfmember))
     for aff in affilies:
         aff.team = listing_affilies(sbfmember=aff)
+    is_active = num_aff >= 3
     data = {
         'affilies': affilies,
         'code': code,
         'level': get_level(num_aff),
-        'num_aff': num_aff
+        'is_active': is_active
     }
 
     return render(request, 'users/dashboard.html', data)

@@ -44,6 +44,14 @@ class SBFMember(models.Model):
         verbose_name = "Membre SBF"
         verbose_name_plural = "Membres SBF"
 
+    def profile(self):
+        code = Codes.objects.get(sbfmember=self)
+        return f"{code.code_parrain} {self.user.username} {self.phone_number}"
+
+    def is_active(self):
+        return True if get_num_affilies(self) >= 3 else False
+
+
     def __str__(self):
         if self.user is not None:
             return f"{self.user.username}"

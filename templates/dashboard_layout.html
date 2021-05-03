@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block extrastyle %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/sbf-css.css' %}">
+    {% endblock extrastyle %}
+    <title> 
+            {% if title %} 
+                {{ title }} 
+            {% else %}
+                Tableau de bord
+            {% endif %} 
+            | SBF
+    </title>
+</head>
+<body>
+    <div class="container-fluid bg-white sticky-top">
+        <div class="row align-items-center m-top-xmini m-bottom-xmini">
+            <div class="col-lg-4">
+                <h5>1.000.000 membres dans mon réseau</h5>
+            </div>
+            <div class="col-lg-2">
+                <img src="{% static 'images/logo_new.png' %}" alt="logo-sbf" class="img-fluid">
+            </div>
+            <div class="col-lg-4 offset-lg-2">
+                <h5>{{ user.sbfmember.profile }}</h5>
+            </div>
+        </div>
+        <div class="row bg-primary">
+            <div class="col-lg-12">
+                <ul class="nav nav-user justify-content-center">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">Tableau de Bord</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Mon Réseau</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{% url 'organigramme' %}">Organigrammes</a></li>
+                          <li><a class="dropdown-item" href="{% url 'listing-members' %}">Membres de mon réseau</a></li>
+                        </ul>
+                      </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Mes Gains</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Mon Compte</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#">Infos & Actus</a>
+                    </li>
+                  </ul>
+            </div>
+        </div>
+    </div>
+
+    {% block content %}{% endblock content %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+</html>
