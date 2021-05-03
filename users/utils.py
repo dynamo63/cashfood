@@ -12,8 +12,8 @@ def get_code_parrain(id_parent):
 
 def get_level(num_aff):
     if num_aff == settings.DEMARREUR:
-        return "Demarreur"
+        return "DEMARREUR"
     elif num_aff == settings.RUGBY_1:
-        return "Rugby 1"
+        return "RUGBY 1"
     else:
-        return "Pas encore defini"
+        return "Niveau 0"
