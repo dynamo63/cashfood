@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import SBFMember, Assignement
+from .models import SBFMember, Assignement, Codes
 from .utils import get_code_parrain
 
 @receiver(post_save, sender=SBFMember)
