@@ -10,6 +10,9 @@ def get_code_parrain(id_parent):
     numbers = ''.join(random.choice(digits) for _ in range(4))
     return f"SBF{id_parent}_{numbers}"
 
+def convert_queryset_in_dict(queryset):
+    return [value for value in queryset.values()]
+
 def get_level(num_aff):
     if num_aff == settings.DEMARREUR:
         return "DEMARREUR"

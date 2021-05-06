@@ -3,9 +3,15 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
-from .models import SBFMember, User, Codes, listing_affilies, listing_all_affs
+from .models import (SBFMember, 
+                    User, Codes, 
+                    listing_affilies, 
+                    listing_all_affs,
+                    Assignement,
+                    Matrice,
+                    Gain)
 from .forms import SBFSignInForm
-from .utils import get_code_parrain, get_level
+from .utils import get_code_parrain, get_level, convert_queryset_in_dict
 
 
 def login(request):
@@ -28,21 +34,27 @@ def dashboard(request):
     """
         Page d'accueil : home
     """
-    sbfmember = SBFMember.objects.get(user=request.user)
-    affilies = listing_affilies(sbfmember=sbfmember)
-    code = Codes.objects.get(sbfmember=sbfmember)
-    num_aff = len(listing_all_affs(sbfmember))
-    for aff in affilies:
-        aff.team = listing_affilies(sbfmember=aff)
-    is_active = num_aff >= 3
-    data = {
-        'affilies': affilies,
-        'code': code,
-        'level': get_level(num_aff),
-        'is_active': is_active
+    matrices = Matrice.objects.all()
+
+    # Get Matrice
+    matrices = convert_queryset_in_dict(matrices)
+    for m in matrices:
+        m['gains'] = []
+
+    # Get Gain Matrice
+    for matrice in matrices:
+        gains = convert_queryset_in_dict(Gain.objects.filter(matrice__pk=matrice['id']))
+        matrice['gains'] += gains
+
+        # Verification
+        matrice['status'] = Assignement.objects.filter(member=request.user.sbfmember, matrice__pk=matrice['id']).exists()
+
+
+    context = {
+        'matrices': matrices
     }
 
-    return render(request, 'users/dashboard.html', data)
+    return render(request, 'users/dashboard.html', context=context)
 
 @login_required
 def organigramme(request):
