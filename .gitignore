@@ -12,8 +12,14 @@ db.sqlite3
 # dotenv
 .env
 
+# media files
+media/
+
 # Local template
 sbf/
 
 # Staticfiles prod
 staticfiles/
+
+# vscode
+.vscode/

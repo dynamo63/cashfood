@@ -49,13 +49,54 @@ class SBFMember(models.Model):
         return f"{code.code_parrain} {self.user.username} {self.phone_number}"
 
     def is_active(self):
-        return True if get_num_affilies(self) >= 3 else False
+        return Assignement.objects.filter(member=self).exists()
+    
+    def get_num_all_aff(self):
+        return len(listing_all_affs(self))
 
+    def get_level(self):
+        is_active = Assignement.objects.filter(member=self).exists()
+        if is_active:
+            ass = Assignement.objects.filter(member=self).last()
+            return ass.matrice.name
+        else:
+            return None
 
     def __str__(self):
         if self.user is not None:
             return f"{self.user.username}"
         return f"{self.code}"
+
+class Matrice(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Nom du Niveau")
+    prerequisite = models.IntegerField(verbose_name='Nombre D\'affilie a avoir', unique=True)
+
+    def __str__(self):
+        return self.name
+
+class Gain(models.Model):
+    image = models.ImageField(upload_to='pics/', default='food.png')
+    title = models.CharField(max_length=255, verbose_name="designation")
+    description = models.TextField()
+    matrice = models.ForeignKey(Matrice, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+class Assignement(models.Model):
+    member = models.ForeignKey(SBFMember, on_delete=models.CASCADE)
+    matrice = models.ForeignKey(Matrice, on_delete=models.CASCADE)
+    received = models.BooleanField(default=False, verbose_name='A recu son gain')
+    date_of_receipt = models.DateField(verbose_name='Date de Reception', null=True, blank=False)
+
+    # for pylint
+    objects = models.Manager()
+
+    def status(self):
+        return self.date_of_receipt == None
+
+    def __str__(self):
+        return f"{self.member} has unlocked {self.matrice}"
 
 class Codes(models.Model):
     code_parrain = models.CharField(verbose_name="Code Parrain", max_length=20, unique=True)

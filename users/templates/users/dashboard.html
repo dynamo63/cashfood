@@ -11,7 +11,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3">
-                        {% if is_active %}
+                        {% if user.sbfmember.is_active %}
                             <div class="card bg-success text-white">
                                 <div class="card-body">
                                 <h6 class="card-title">ETAT DU COMPTE </h6>
@@ -59,7 +59,13 @@
                         <div class="card bg-info text-white">
                             <div class="card-body">
                               <h6 class="card-title">MATRICE ACTUELLE </h6>
-                              <h3 class="card-subtitle mb-2 fw-bold">{{ level }}</h3>
+                              <h3 class="card-subtitle mb-2 fw-bold">
+                                {% if user.sbfmember.is_active %}
+                                    {{ user.sbfmember.get_level }}
+                                {% else %}
+                                    Niveau 0
+                                {% endif %}
+                              </h3>
                               <p class="card-text">
                                   <small>&nbsp</small>
                               </p>
@@ -86,21 +92,34 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr>
-                                        <td>affichage dynamique</td>
-                                        <td>affichage dynamique</td>
-                                        <td>affichage dynamique</td>
-                                      </tr>
-                                      <tr>
-                                        <td>affichage dynamique</td>
-                                        <td>affichage dynamique</td>
-                                        <td>affichage dynamique</td>
-                                      </tr>
-                                      <tr>
-                                        <td>affichage dynamique</td>
-                                        <td>affichage dynamique</td>
-                                        <td>affichage dynamique</td>
-                                      </tr>
+                                        {% for matrice in matrices %}
+                                            {% with matrice.gains as gains %}
+                                                {% for gain in gains %}
+                                                    <tr>
+                                                        <td scope="col">{{ matrice.name }}</td>
+                                                        <td scope="col">
+                                                            <p> {{ gain.title }} </p>
+                                                            <p> {{ gain.description }} </p>
+                                                        </td>
+                                                        <td scope="col">
+                                                            {% if matrice.status %}
+                                                                Actif
+                                                            {% else %}
+                                                                Inactif
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% empty %}
+                                                    <td colspan="3" class="text-center">
+                                                        Vous n'avez encore gain pour le moment
+                                                    </td>
+                                                {% endfor %}
+                                            {% endwith %}
+                                        {% empty %}
+                                            <td colspan="3" class="text-center">
+                                                Vous n'avez encore gain pour le moment
+                                            </td>
+                                        {% endfor %}
                                     </tbody>
                                   </table>
                             </div>
