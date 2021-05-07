@@ -10,7 +10,7 @@ from .models import (SBFMember,
                     Assignement,
                     Matrice,
                     Gain)
-from .forms import SBFSignInForm
+from .forms import SBFSignInForm, SBFLoginForm
 from .utils import get_code_parrain, get_level, convert_queryset_in_dict
 
 
@@ -20,14 +20,17 @@ def login(request):
             - code : le code de l'utilisateur
             - password: mot de passe utilisateur
     """
+    form = SBFLoginForm()
     if request.method == 'POST':
-        code = request.POST['code']
-        password = request.POST['password']
-        user = authenticate(code=code, password=password)
-        if user is not None:
-            auth_login(request, user, backend='users.backends.SBFBackend')
-            return redirect('dashboard')
-    return render(request, 'users/connexion.html')
+        form = SBFLoginForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data['code']
+            password = form.cleaned_data['password']
+            user = authenticate(code=code, password=password)
+            if user is not None:
+                auth_login(request, user, backend='users.backends.SBFBackend')
+                return redirect('dashboard')
+    return render(request, 'users/connexion.html', { 'form': form })
 
 @login_required
 def dashboard(request):

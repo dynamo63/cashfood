@@ -17,6 +17,18 @@ class SBFTest(TestCase):
         self.user_dynamo63 = User.objects.get(username='dynamo63')
         SBFMember.objects.create(user=self.user_dynamo63)
 
+        # Create superuser
+        username, password = 'gege34', '#mysuperpassword1234'
+        admin = User.objects.create(username=username)
+        admin.set_password(password)
+        admin.is_staff = True
+        admin.is_superuser = True
+        admin.is_active = True
+        admin.save()
+        self.user_admin = username
+        self.password_admin = password
+
+
     def test_create_code(self):
         """
             Teste la creation du code parrain lors de l'ajout d'un membre
@@ -81,3 +93,35 @@ class SBFTest(TestCase):
 
         user = User.objects.get(username='dynamo63')
         self.assertIsNotNone(user.last_login)
+
+
+    def test_login_admin_failed(self):
+        """
+            Run test failed
+        """        
+        data = {
+            'username': 'Edward',
+            'password': 'test2000'
+        }
+
+        is_login = self.client.login(username=data['username'], password=data['password'])
+
+        self.assertFalse(is_login)
+
+        response = self.client.get('/admin')
+        
+        self.assertEqual(response.status_code, 301)
+
+    def test_login_admin_success(self):
+        """
+            Run test Admin success
+        """
+
+        # Login Admin
+        is_login = self.client.login(username=self.user_admin, password=self.password_admin)
+
+        self.assertTrue(is_login)
+
+        response = self.client.get('/admin', follow=True)
+        
+        self.assertEqual(response.status_code, 200)
