@@ -42,3 +42,24 @@ class SBFSignInForm(forms.Form):
             raise forms.ValidationError('Ce code n\'existe pas')
         else:
             return code
+
+
+class SBFLoginForm(forms.Form):
+    code = forms.CharField(label='Code', widget=forms.TextInput({
+        'class': 'form-control',
+        'aria-describedby':'codeHelp'
+    }))
+    password = forms.CharField(label='Mot de Passe', widget=forms.PasswordInput({
+        'class': 'form-control'
+    }))
+
+    def clean_code(self):
+        code = self.cleaned_data['code']
+        try:
+            sbfmember = SBFMember.objects.get(code=code)
+            if sbfmember.user is None:
+                raise forms.ValidationError('Aucun Membre utilise ce code')
+        except SBFMember.DoesNotExist:
+            raise forms.ValidationError('Ce code n\'existe pas')
+        else:
+            return code
