@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import user_passes_test
 from django.contrib import messages
 from django.db import transaction
 from .models import (SBFMember, 
@@ -11,6 +12,7 @@ from .models import (SBFMember,
                     Matrice,
                     Gain)
 from .forms import SBFSignInForm, SBFLoginForm
+from .decorators import sbfmember_only
 from .utils import get_code_parrain, get_level, convert_queryset_in_dict
 
 
@@ -33,6 +35,7 @@ def login(request):
     return render(request, 'users/connexion.html', { 'form': form })
 
 @login_required
+@user_passes_test(sbfmember_only)
 def dashboard(request):
     """
         Page d'accueil : home
@@ -60,6 +63,7 @@ def dashboard(request):
     return render(request, 'users/dashboard.html', context=context)
 
 @login_required
+@user_passes_test(sbfmember_only)
 def organigramme(request):
     sbfmember = SBFMember.objects.get(user=request.user)
     affilies = listing_affilies(sbfmember=sbfmember)
@@ -124,6 +128,17 @@ def signin_with_code(request):
             messages.success(request, "Inscription Reussi, rentrez vos informations pour vous connecter")
             return redirect('login')
     return render(request, 'users/inscription.html', { 'form': form })
+
+@login_required
+def gains(request):
+    """
+        This view list the gift of the user
+    """
+    context = {
+        'assignments': Assignement.objects.filter(member=request.user.sbfmember)
+    }
+    return render(request, 'users/gains.html', context)
+
 
 @login_required
 def logout(request):
