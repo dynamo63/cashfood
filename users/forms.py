@@ -50,7 +50,8 @@ class SBFLoginForm(forms.Form):
         'aria-describedby':'codeHelp'
     }))
     password = forms.CharField(label='Mot de Passe', widget=forms.PasswordInput({
-        'class': 'form-control'
+        'class': 'form-control',
+        'aria-describedby': 'passwordHelp'
     }))
 
     def clean_code(self):

@@ -27,6 +27,9 @@
                       <label for="{{ form.password.id_for_label }}" class="col-sm-3 col-form-label">Mot de Passe</label>
                       <div class="col-sm-9">
                         {{ form.password }}
+                        <div id="passwordHelp" class="form-text text-danger">
+                          {{ form.password.errors }}
+                        </div>
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Connexion</button>

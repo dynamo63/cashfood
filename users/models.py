@@ -87,7 +87,7 @@ class Assignement(models.Model):
     member = models.ForeignKey(SBFMember, on_delete=models.CASCADE)
     matrice = models.ForeignKey(Matrice, on_delete=models.CASCADE)
     received = models.BooleanField(default=False, verbose_name='A recu son gain')
-    date_of_receipt = models.DateField(verbose_name='Date de Reception', null=True, blank=False)
+    date_of_receipt = models.DateField(verbose_name='Date de Reception',null=True, blank=False)
 
     # for pylint
     objects = models.Manager()

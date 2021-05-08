@@ -22,5 +22,13 @@ class MatriceAdmin(admin.ModelAdmin):
     
 
 
-admin.site.register(Gain)
-admin.site.register(Assignement)
+@admin.register(Gain)
+class GainAdmin(admin.ModelAdmin):
+    list_display = ['title', 'description', 'matrice', 'image']
+    list_filter = ['matrice']
+
+@admin.register(Assignement)
+class AssignmentAdmin(admin.ModelAdmin):
+    list_display = ['member', 'matrice', 'received']
+    list_filter = ['matrice']
+    search_fields = ['member__user__username']
